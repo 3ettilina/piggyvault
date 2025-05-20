@@ -3,14 +3,7 @@
 
 name: Build and deploy Piggyvault APIs (ASP.Net Core) to Azure Web App
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/Web/aspnet-core/**'
-  workflow_dispatch:
-
+on: workflow_dispatch
 jobs:
   build:
     runs-on: windows-latest
