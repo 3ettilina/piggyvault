@@ -1,0 +1,34 @@
+name: Checkmarx Scan
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+jobs:
+  build:
+    permissions:
+      contents: read
+      security-events: write # to update results
+      actions: read # only required for a private repository
+      
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Checkmarx One scan
+        uses: checkmarx/ast-github-action@8e887bb93dacc44e0f5b64ee2b06d5815f89d4fc
+        with:
+          base_uri: https://ast.checkmarx.net
+          cx_client_id: ${{ secrets.CX_CLIENT_ID }} 
+          cx_tenant: ${{ secrets.CX_TENANT }}
+          additional_params: --report-format sarif --output-path .
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: cx_result.sarif
