@@ -26,9 +26,9 @@ jobs:
         uses: checkmarx/ast-github-action@8e887bb93dacc44e0f5b64ee2b06d5815f89d4fc
         with:
           base_uri: https://ast.checkmarx.net
-          cx_client_id: ${{ secrets.CXONE_CLIENT_ID }} 
+          cx_client_id: ${{ vars.CXONE_CLIENT_ID }} 
           cx_client_secret: ${{ secrets.CXONE_CLIENT_SECRET }}
-          cx_tenant: ${{ secrets.CXONE_TENANT }}
+          cx_tenant: ${{ vars.CXONE_TENANT }}
           additional_params: --threshold "sca-high = 30, sca-critical = 10" --report-format sarif --output-path .
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
