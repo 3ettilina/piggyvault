@@ -29,9 +29,9 @@ jobs:
           cx_client_id: ${{ vars.CXONE_CLIENT_ID }} 
           cx_client_secret: ${{ secrets.CXONE_CLIENT_SECRET }}
           cx_tenant: ${{ vars.CXONE_TENANT }}
-          additional_params: --threshold "sca-high = 30, sca-critical = 10" --report-format sarif --output-path .
+          additional_params: --report-format sarif --output-path . # --threshold "sca-critical=5;sca-high=10;sast-critical=10;sast-high=30" 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
           # Path to SARIF file relative to the root of the repository
-          sarif_file: cx_result.sarif
+          sarif_file: security/cx_result.sarif
