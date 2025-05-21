@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 jobs:
-  build:
+  security-scan:
     permissions:
       contents: read
       security-events: write # to update results
